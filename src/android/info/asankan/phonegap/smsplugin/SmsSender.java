@@ -46,8 +46,8 @@ public class SmsSender {
         ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
 
         for (int i = 0; i < numParts; i++) {
-        sentIntents.add(PendingIntent.getBroadcast(getContext(), 0, mSendIntent, 0));
-        deliveryIntents.add(PendingIntent.getBroadcast(getContext(), 0, mDeliveryIntent, 0));
+        sentIntents.add(PendingIntent.getBroadcast(getApplicationContext(), 0, mSendIntent, 0));
+        deliveryIntents.add(PendingIntent.getBroadcast(getApplicationContext(), 0, mDeliveryIntent, 0));
         }
 
         sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents);
