@@ -106,7 +106,7 @@ public class SmsSender {
         ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>(messageCount);
 
         for (int j = 0; j < messageCount; j++) {
-            sentIntents.add( PendingIntent.getBroadcast( context , 0 , new Intent( ) , 0 ) );
+            sentIntents.add( PendingIntent.getBroadcast( activity , 0 , new Intent( ) , 0 ) );
         }
         sms.sendMultipartTextMessage(phoneNumber, null, messages, sentIntents, null);
     }
