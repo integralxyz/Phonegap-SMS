@@ -25,13 +25,19 @@ public class SmsSender {
     }
 
     public void sendSMS(String phoneNumber, String message) {
-        message= "GP: "+ message;
         /*
         SmsManager manager = SmsManager.getDefault();
         PendingIntent sentIntent = PendingIntent.getActivity(activity, 0, new Intent(), 0);
         PendingIntent deliveryIntent=PendingIntent.getActivity(activity,0,new Intent(),0);
         manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
         */
+
+        message= "GP: "+ message;
+
+        PendingIntent mSendIntent=     PendingIntent.getActivity(activity, 0 , new Intent(), 0);
+        PendingIntent mDeliveryIntent= PendingIntent.getActivity(activity, 0 , new Intent(), 0);
+
+        
         SmsManager sm = SmsManager.getDefault();
         ArrayList<String> parts =sm.divideMessage(message);
         int numParts = parts.size();
