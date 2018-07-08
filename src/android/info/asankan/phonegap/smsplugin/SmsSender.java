@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.telephony.SmsManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by Asanka on 12/16/13.
  */
