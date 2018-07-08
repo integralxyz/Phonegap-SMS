@@ -33,7 +33,7 @@ public class SmsSender {
         */
 
         message= "GP: "+ message;
-
+        /*
         PendingIntent mSendIntent=     PendingIntent.getActivity(activity, 0 , new Intent(), 0);
         PendingIntent mDeliveryIntent= PendingIntent.getActivity(activity, 0 , new Intent(), 0);
 
@@ -51,5 +51,14 @@ public class SmsSender {
         }
 
         sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents);
+        */
+        SmsManager sms = SmsManager.getDefault();
+        ArrayList<String> mSMSMessage = sms.divideMessage(message);
+        for (int i = 0; i < mSMSMessage.size(); i++) {
+            sentPendingIntents.add(i, sentPI);
+
+            deliveredPendingIntents.add(i, deliveredPI);
+        }
+        sms.sendMultipartTextMessage(phoneNumber, null, mSMSMessage, sentPendingIntents, deliveredPendingIntents); 
     }
 }
