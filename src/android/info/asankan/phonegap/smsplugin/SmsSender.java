@@ -73,6 +73,9 @@ public class SmsSender {
 
         } catch (Exception e) {  }
         */
+        PendingIntent mSendIntent=     PendingIntent.getActivity(activity, 0 , new Intent(), 0);
+        PendingIntent mDeliveryIntent= PendingIntent.getActivity(activity, 0 , new Intent(), 0);
+        
         SmsManager sm = SmsManager.getDefault();
         ArrayList<String> parts =sm.divideMessage(message);
         int numParts = parts.size();
