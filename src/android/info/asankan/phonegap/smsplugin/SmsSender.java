@@ -52,13 +52,24 @@ public class SmsSender {
 
         sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents);
         */
-        SmsManager sms = SmsManager.getDefault();
-        ArrayList<String> mSMSMessage = sms.divideMessage(message);
-        for (int i = 0; i < mSMSMessage.size(); i++) {
-            sentPendingIntents.add(i, sentPI);
+        ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
+        ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
+        PendingIntent sentPI = PendingIntent.getBroadcast(mContext, 0,
+                new Intent(mContext, SmsSentReceiver.class), 0);
 
-            deliveredPendingIntents.add(i, deliveredPI);
-        }
-        sms.sendMultipartTextMessage(phoneNumber, null, mSMSMessage, sentPendingIntents, deliveredPendingIntents); 
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(mContext, 0,
+                new Intent(mContext, SmsDeliveredReceiver.class), 0);
+        try {
+            SmsManager sms = SmsManager.getDefault();
+            ArrayList<String> mSMSMessage = sms.divideMessage(message);
+            for (int i = 0; i < mSMSMessage.size(); i++) {
+                sentPendingIntents.add(i, sentPI);
+
+                deliveredPendingIntents.add(i, deliveredPI);
+            }
+            sms.sendMultipartTextMessage(phoneNumber, null, mSMSMessage,
+                    sentPendingIntents, deliveredPendingIntents);
+
+        } catch (Exception e) {  }
     }
 }
