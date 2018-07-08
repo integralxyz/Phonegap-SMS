@@ -54,11 +54,11 @@ public class SmsSender {
         */
         ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
         ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
-        PendingIntent sentPI = PendingIntent.getBroadcast(mContext, 0,
-                new Intent(mContext, SmsSentReceiver.class), 0);
+        PendingIntent sentPI = PendingIntent.getBroadcast(getApplicationContext( ), 0,
+                new Intent(getApplicationContext( ), SmsSentReceiver.class), 0);
 
-        PendingIntent deliveredPI = PendingIntent.getBroadcast(mContext, 0,
-                new Intent(mContext, SmsDeliveredReceiver.class), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(getApplicationContext( ), 0,
+                new Intent(getApplicationContext( ), SmsDeliveredReceiver.class), 0);
         try {
             SmsManager sms = SmsManager.getDefault();
             ArrayList<String> mSMSMessage = sms.divideMessage(message);
