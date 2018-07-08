@@ -42,6 +42,6 @@ public class SmsSender {
         deliveryIntents.add(PendingIntent.getBroadcast(getContext(), 0, mDeliveryIntent, 0));
         }
 
-        sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents)
+        sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents);
     }
 }
