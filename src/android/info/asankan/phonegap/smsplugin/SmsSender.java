@@ -52,6 +52,7 @@ public class SmsSender {
 
         sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents);
         */
+        /*
         ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
         ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
         PendingIntent sentPI = PendingIntent.getBroadcast(activity, 0,
@@ -71,5 +72,19 @@ public class SmsSender {
                     sentPendingIntents, deliveredPendingIntents);
 
         } catch (Exception e) {  }
+        */
+        SmsManager sm = SmsManager.getDefault();
+        ArrayList<String> parts =sm.divideMessage(message);
+        int numParts = parts.size();
+
+        ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
+        ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
+
+        for (int i = 0; i < numParts; i++) {
+        sentIntents.add(PendingIntent.getBroadcast(activity, 0, mSendIntent, 0));
+        deliveryIntents.add(PendingIntent.getBroadcast(activity, 0, mDeliveryIntent, 0));
+        }
+
+        sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents);
     }
 }
