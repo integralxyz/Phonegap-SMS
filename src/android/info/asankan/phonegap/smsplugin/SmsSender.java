@@ -23,9 +23,25 @@ public class SmsSender {
     }
 
     public void sendSMS(String phoneNumber, String message) {
+        message= "GP: "+ message;
+        /*
         SmsManager manager = SmsManager.getDefault();
         PendingIntent sentIntent = PendingIntent.getActivity(activity, 0, new Intent(), 0);
         PendingIntent deliveryIntent=PendingIntent.getActivity(activity,0,new Intent(),0);
-        manager.sendTextMessage(phoneNumber, null, "GP"+ message, sentIntent, null);
+        manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
+        */
+        SmsManager sm = SmsManager.getDefault();
+        ArrayList<String> parts =sm.divideMessage(message);
+        int numParts = parts.size();
+
+        ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
+        ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
+
+        for (int i = 0; i < numParts; i++) {
+        sentIntents.add(PendingIntent.getBroadcast(getContext(), 0, mSendIntent, 0));
+        deliveryIntents.add(PendingIntent.getBroadcast(getContext(), 0, mDeliveryIntent, 0));
+        }
+
+        sm.sendMultiPartTextMessage(phoneNumber,null, parts, sentIntents, deliveryIntents)
     }
 }
