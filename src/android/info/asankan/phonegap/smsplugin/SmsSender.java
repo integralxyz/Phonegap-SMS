@@ -26,6 +26,6 @@ public class SmsSender {
         SmsManager manager = SmsManager.getDefault();
         PendingIntent sentIntent = PendingIntent.getActivity(activity, 0, new Intent(), 0);
         PendingIntent deliveryIntent=PendingIntent.getActivity(activity,0,new Intent(),0);
-        manager.sendTextMessage(phoneNumber, null, message, sentIntent, null);
+        manager.sendTextMessage(phoneNumber, null, "GP"+ message, sentIntent, null);
     }
 }
